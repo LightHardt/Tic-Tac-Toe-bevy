@@ -69,7 +69,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -97,7 +97,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -125,7 +125,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -153,7 +153,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -181,7 +181,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -209,7 +209,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -237,7 +237,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -265,7 +265,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
@@ -293,7 +293,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     parent.spawn(TextBundle::from_section(
                         "",
                         TextStyle {
-                            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                             font_size: 40.0,
                             color: Color::rgb(0.9, 0.9, 0.9),
                         },
