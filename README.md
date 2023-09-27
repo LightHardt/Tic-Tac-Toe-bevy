@@ -7,6 +7,7 @@ Assuming you have rust installed simply cloning the repo and using the command `
 # To-do
 - [x] Properly handle when there is a draw
 - [x] Properly handle when game is over
-- [ ] Add a way to let AI make move first
+- [x] Add a way to let AI make move first
 - [x] Add a way to start game over
 - [x] Clear text on buttons after game over or draw
+- [ ] Make AI first move random to make it more interesting
