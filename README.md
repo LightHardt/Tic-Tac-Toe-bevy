@@ -9,4 +9,4 @@ Assuming you have rust installed simply cloning the repo and using the command `
 - [x] Properly handle when game is over
 - [ ] Add a way to let AI make move first
 - [x] Add a way to start game over
-- [ ] Clear text on buttons after game over or draw
+- [x] Clear text on buttons after game over or draw
