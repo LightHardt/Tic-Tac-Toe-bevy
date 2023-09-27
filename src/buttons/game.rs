@@ -1,6 +1,6 @@
 use bevy::prelude::Component;
 
-type Board = [[i8;3]; 3];
+pub type Board = [[i8;3]; 3];
 pub const HUMAN: i8 = 1;
 pub const AI: i8 = 2;
 pub const HUMAN_SYM: &str = "X";
