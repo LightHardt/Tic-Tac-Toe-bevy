@@ -205,8 +205,7 @@ fn minimax(ai: i8, human: i8,  depth: i8, mut board: Board, maximize: bool) -> i
     }
 }
 /**
- * Function makes a random move for AI based on 
- * open slots randomly
+ * Function makes smart move based on depth
  */
 pub fn ai_move(ai: i8, human: i8, board: Board) -> i8 {
     let mut best = i32::min_value();

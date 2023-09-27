@@ -284,6 +284,100 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     ));
                 });
         });
+
+    commands
+        .spawn(NodeBundle {
+            style: Style { 
+                display: Display::Flex,
+                width: Val::Px(75.0),
+                height: Val::Px(55.0),
+                align_self: AlignSelf::Center,
+                margin: UiRect::top(Val::Vh(70.0)),
+                ..default()
+            },
+            ..default()
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        align_items: AlignItems::Center,
+                        justify_content: JustifyContent::Center,
+                        width: Val::Px(75.0),
+                        height: Val::Px(55.0),
+                        border: UiRect::all(Val::Px(2.0)),
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: Color::PURPLE.into(),
+                    ..default()
+                }, AiMove))
+                .with_children(|parent| {
+                    parent
+                        .spawn(TextBundle::from_section(
+                            "Ai Move\nFirst",
+                            TextStyle {
+                                font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                                font_size: 15.0,
+                                color: Color::rgb(0.9, 0.9, 0.9),
+                            }
+                        ));
+                });
+        });               
+            
+}
+
+pub fn ai_move_button(
+    mut interaction_query: Query<(
+        &Interaction,
+        &mut BorderColor,
+        Option<&AiMove>,
+    ),
+    (Changed<Interaction>, With<Button>),
+    >,
+    button1_query: Query<&Children,With<Marker1>>,
+    button2_query: Query<&Children,With<Marker2>>,
+    button3_query: Query<&Children,With<Marker3>>,
+    button4_query: Query<&Children,With<Marker4>>,
+    button5_query: Query<&Children,With<Marker5>>,
+    button6_query: Query<&Children,With<Marker6>>,
+    button7_query: Query<&Children,With<Marker7>>,
+    button8_query: Query<&Children,With<Marker8>>,
+    button9_query: Query<&Children,With<Marker9>>,
+    mut text_query: Query<&mut Text>,
+    mut board_query: Query<&mut Game>,
+) {
+    for (interaction, mut border_color, ai_button_check) in &mut interaction_query {
+        match *interaction {
+            Interaction::Pressed => {
+                if ai_button_check.is_some() {
+                    for mut board in &mut board_query {
+                        let mut first_move_check = true;
+                        for i in board.board {
+                            for j in i {
+                                if j != 0  { first_move_check = false; }
+                            }
+                        }
+                        if !first_move_check {
+                            break;
+                        }
+                        let ai = ai_move(AI, HUMAN, board.board);
+                        player_move(AI, ai, &mut board.board);
+                        mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+                    }
+                }
+            },
+            Interaction::Hovered => {
+                border_color.0 = Color::WHITE; // dont need to check as this behavior is same for all buttons
+            },
+            Interaction::None => {
+                if ai_button_check.is_some() {
+                    border_color.0 = Color::PURPLE;
+                }
+            },
+        }
+    }
 }
 
 fn clear_board(
@@ -448,7 +542,7 @@ fn mark_ai_move(
     }
 }
 
-pub fn button_system(
+pub fn board_system(
     mut interaction_query: Query<
         (
             &Interaction,
@@ -459,7 +553,7 @@ pub fn button_system(
                 Option<&Marker4>,Option<&Marker5>,Option<&Marker6>,
                 Option<&Marker7>,Option<&Marker8>,Option<&Marker9>),
         ),
-        (Changed<Interaction>, With<Button>),
+        (Changed<Interaction>, With<Button>, Without<AiMove>),
     >,
     button1_query: Query<&Children,With<Marker1>>,
     button2_query: Query<&Children,With<Marker2>>,

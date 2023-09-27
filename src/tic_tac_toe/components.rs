@@ -19,3 +19,5 @@ pub struct Marker7;
 pub struct Marker8;
 #[derive(Component)]
 pub struct Marker9;
+#[derive(Component)]
+pub struct AiMove;
