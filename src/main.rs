@@ -1,6 +1,3 @@
-//! This example illustrates how to create a button that changes color and text based on its
-//! interaction state.
-
 use bevy::{prelude::*, winit::WinitSettings, input::common_conditions::input_toggle_active};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use bevy_text_popup::TextPopupPlugin;

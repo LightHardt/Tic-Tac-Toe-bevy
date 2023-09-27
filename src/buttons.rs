@@ -597,7 +597,7 @@ pub fn button_system(
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
-                                
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -627,14 +627,3 @@ pub fn button_system(
         }
     }
 }
-
-// pub fn marker1_test(
-//     button1_query: Query<&Children,With<Marker1>>,
-//     button2_query: Query<&Children,With<Marker2>>,
-//     mut text_query: Query<&mut Text>
-// ) {
-//     for button in &button1_query {
-//         let mut text = text_query.get_mut(button[0]).unwrap();
-//         text.sections[0].value = "I work".to_string();
-//     }
-// }
