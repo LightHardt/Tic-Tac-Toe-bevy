@@ -77,8 +77,43 @@ fn clear_board(
     }
 }
 
-fn send_draw(text_popup: &EventWriter<TextPopupEvent>) {
+fn send_draw(text_popup: &mut EventWriter<TextPopupEvent>) {
+    text_popup.send(TextPopupEvent {
+        content: "Draw!".to_string(),
+        modal: Some(Color::YELLOW),
+        timeout: TextPopupTimeout::Seconds(5),
+        dismiss_button: Some(TextPopupButton {
+            text: "Close".to_string(),
+            ..Default::default()
+        }),
+        ..default()
+    });
+}
 
+fn send_won(text_popup: &mut EventWriter<TextPopupEvent>) {
+    text_popup.send(TextPopupEvent {
+        content: "You Won!".to_string(),
+        modal: Some(Color::GREEN),
+        timeout: TextPopupTimeout::Seconds(5),
+        dismiss_button: Some(TextPopupButton {
+            text: "Close".to_string(),
+            ..Default::default()
+        }),
+        ..default()
+    });
+}
+
+fn send_lost(text_popup: &mut EventWriter<TextPopupEvent>) {
+    text_popup.send(TextPopupEvent {
+        content: "You Lost!".to_string(),
+        modal: Some(Color::RED),
+        timeout: TextPopupTimeout::Seconds(5),
+        dismiss_button: Some(TextPopupButton {
+            text: "Close".to_string(),
+            ..Default::default()
+        }),
+        ..default()
+    });
 }
 
 pub fn button_system(
@@ -116,32 +151,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 1, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -213,32 +230,14 @@ pub fn button_system(
                             }
 
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -251,30 +250,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 2, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
+                                clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
+                                    &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -345,32 +328,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -383,32 +348,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 3, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -479,32 +426,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -517,32 +446,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 4, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -613,32 +524,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -651,32 +544,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 5, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -747,32 +622,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -785,32 +642,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 6, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -881,32 +720,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -919,32 +740,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 7, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -1015,32 +818,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -1053,32 +838,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 8, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -1149,32 +916,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -1187,32 +936,14 @@ pub fn button_system(
                     for mut b in &mut board_query {
                         if game::player_move(b.turn, 9, &mut b.board) {
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(b.turn, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Won!".to_string(),
-                                    modal: Some(Color::GREEN),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -1283,32 +1014,14 @@ pub fn button_system(
                                 _ => panic!("AI move error")
                             }
                             if game::is_draw(b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "Draw!".to_string(),
-                                    modal: Some(Color::YELLOW),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
                             if game::is_game_over(game::AI, b.board) {
-                                text_popup.send(TextPopupEvent {
-                                    content: "You Lost!".to_string(),
-                                    modal: Some(Color::RED),
-                                    timeout: TextPopupTimeout::Seconds(5),
-                                    dismiss_button: Some(TextPopupButton {
-                                        text: "Close".to_string(),
-                                        ..Default::default()
-                                    }),
-                                    ..default()
-                                });
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
