@@ -3,6 +3,7 @@
 
 use bevy::{prelude::*, winit::WinitSettings, input::common_conditions::input_toggle_active};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use bevy_text_popup::TextPopupPlugin;
 mod buttons;
 
 fn main() {
@@ -20,7 +21,7 @@ fn main() {
         };
 
     App::new()
-        .add_plugins(DefaultPlugins.set(window_plugin))
+        .add_plugins((DefaultPlugins.set(window_plugin),TextPopupPlugin))
         .add_plugins(WorldInspectorPlugin::default().run_if(input_toggle_active(true, KeyCode::Escape)))
         // Only run the app when there is user input. This will significantly reduce CPU/GPU use.
         .insert_resource(WinitSettings::desktop_app())

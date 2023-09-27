@@ -228,3 +228,10 @@ pub fn ai_move(ai: i8, human: i8, board: Board) -> i8 {
     ai_position
 }
 
+pub fn clear_board(board: &mut Board) {
+    for i in 0..3 {
+        for j in 0..3 {
+            board[i][j] = 0;
+        }
+    }
+}
