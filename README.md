@@ -5,7 +5,8 @@ This project is to help familiarize myself with [bevy](https://github.com/bevyen
 Assuming you have rust installed simply cloning the repo and using the command `cargo run` should have it up and running
 
 # To-do
-- [ ] Properly handle when there is a draw
-- [ ] Properly handle when game is over
+- [x] Properly handle when there is a draw
+- [x] Properly handle when game is over
 - [ ] Add a way to let AI make move first
-- [ ] Add a way to start game over
+- [x] Add a way to start game over
+- [ ] Clear text on buttons after game over or draw
