@@ -1,30 +1,290 @@
 use bevy::prelude::*;
 use bevy_text_popup::{TextPopupEvent, TextPopupTimeout, TextPopupButton};
-pub mod game;
+
+use super::components::*;
+use super::game;
+use super::game::*;
 
 // Button Colors
 pub const NORMAL_BUTTON: Color = Color::rgb(0.15, 0.15, 0.15);
 const HOVERED_BUTTON: Color = Color::rgb(0.25, 0.25, 0.25);
 
-// Use markers to mark buttons
-#[derive(Component)]
-pub struct Marker1;
-#[derive(Component)]
-pub struct Marker2;
-#[derive(Component)]
-pub struct Marker3;
-#[derive(Component)]
-pub struct Marker4;
-#[derive(Component)]
-pub struct Marker5;
-#[derive(Component)]
-pub struct Marker6;
-#[derive(Component)]
-pub struct Marker7;
-#[derive(Component)]
-pub struct Marker8;
-#[derive(Component)]
-pub struct Marker9;
+pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+    // ui camera
+    commands.spawn(Camera2dBundle::default());
+    commands
+        .spawn((NodeBundle {
+            style: Style {
+                display: Display::Grid,
+                justify_content: JustifyContent::Center,
+                align_self: AlignSelf::Center,
+                margin: UiRect::left(Val::Vw(20.0)),
+                grid_template_columns: RepeatedGridTrack::flex(3, 1.0),
+                // Set the grid to have 4 rows all with sizes minmax(0, 1fr)
+                // This creates 4 exactly evenly sized rows
+                grid_template_rows: RepeatedGridTrack::flex(3, 1.0),
+                aspect_ratio: Some(1.0),
+                align_content: AlignContent::Center,
+                align_items: AlignItems::Center,
+                row_gap: Val::Px(1.0),
+                column_gap: Val::Px(1.0),
+                ..default()
+            },
+            ..default()
+        },Game::default()))
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker1))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker2))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker3))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker4))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker5))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker6))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker7))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker8))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        })
+        .with_children(|parent| {
+            parent
+                .spawn((ButtonBundle {
+                    style: Style {
+                        width: Val::Px(110.0),
+                        height: Val::Px(110.0),
+                        border: UiRect::all(Val::Px(5.0)),
+                        // horizontally center child text
+                        justify_content: JustifyContent::Center,
+                        // vertically center child text
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    border_color: BorderColor(Color::BLACK),
+                    background_color: NORMAL_BUTTON.into(),
+                    ..default()
+                },Marker9))
+                .with_children(|parent| {
+                    parent.spawn(TextBundle::from_section(
+                        "",
+                        TextStyle {
+                            font: asset_server.load("fonts/FiraMono-Medium.ttf"),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    ));
+                });
+        });
+}
 
 fn clear_board(
     button1_query: &Query<&Children,With<Marker1>>,
@@ -133,55 +393,55 @@ fn mark_ai_move(
         1 => {
             for button in button1_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         2 => {
             for button in button2_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         3 => {
             for button in button3_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         4 => {
             for button in button4_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         5 => {
             for button in button5_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         6 => {
             for button in button6_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         7 => {
             for button in button7_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         8 => {
             for button in button8_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         9 => {
             for button in button9_query {
                 let mut text = text_query.get_mut(button[0]).unwrap();
-                text.sections[0].value = game::AI_SYM.to_string();
+                text.sections[0].value = AI_SYM.to_string();
             }
         },
         _ => panic!("AI move error")
@@ -210,7 +470,7 @@ pub fn button_system(
     button7_query: Query<&Children,With<Marker7>>,
     button8_query: Query<&Children,With<Marker8>>,
     button9_query: Query<&Children,With<Marker9>>, // Add all buttons to this query as will make AI move after human move
-    mut board_query: Query<&mut game::Game>,
+    mut board_query: Query<&mut Game>,
     mut text_query: Query<&mut Text>,
     mut text_popup: EventWriter<TextPopupEvent>,
 ) {
@@ -221,15 +481,15 @@ pub fn button_system(
             Interaction::Pressed => {
                 if marker1.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 1, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 1, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -238,22 +498,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -265,15 +525,15 @@ pub fn button_system(
                 }
                 else if marker2.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 2, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 2, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -282,22 +542,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -309,15 +569,15 @@ pub fn button_system(
                 }
                 else if marker3.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 3, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 3, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -326,22 +586,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -353,15 +613,15 @@ pub fn button_system(
                 }
                 else if marker4.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 4, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 4, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -370,22 +630,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -397,15 +657,15 @@ pub fn button_system(
                 }
                 else if marker5.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 5, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 5, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -414,22 +674,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -441,15 +701,15 @@ pub fn button_system(
                 }
                 else if marker6.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 6, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 6, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -458,22 +718,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -485,15 +745,15 @@ pub fn button_system(
                 }
                 else if marker7.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 7, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 7, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -502,22 +762,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -529,15 +789,15 @@ pub fn button_system(
                 }
                 else if marker8.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 8, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 8, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -546,22 +806,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -573,15 +833,15 @@ pub fn button_system(
                 }
                 else if marker9.is_some() {
                     for mut b in &mut board_query {
-                        if game::player_move(b.turn, 9, &mut b.board) {
-                            if game::is_draw(b.board) {
+                        if player_move(b.turn, 9, &mut b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) {
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -590,22 +850,22 @@ pub fn button_system(
                             }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
-                                text.sections[0].value = game::HUMAN_SYM.to_string();
+                                text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = game::ai_move(game::AI, game::HUMAN, b.board);
-                            game::player_move(game::AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board);
+                            player_move(AI, ai, &mut b.board);
 
                             mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if game::is_draw(b.board) {
+                            if is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if game::is_game_over(game::AI, b.board) {
+                            if is_game_over(AI, b.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 

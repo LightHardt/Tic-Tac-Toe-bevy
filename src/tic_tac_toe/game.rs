@@ -6,9 +6,7 @@ pub const AI: i8 = 2;
 pub const HUMAN_SYM: &str = "X";
 pub const AI_SYM: &str = "O";
 
-/**
- * Will hold key functions for Tic Tac Toe game
- */
+
 #[derive(Clone, Copy, Component)]
 pub struct Game {
     pub board: Board,
