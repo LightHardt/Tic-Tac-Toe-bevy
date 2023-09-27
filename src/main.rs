@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"] // hide terminal, also comment this out when debugging
+
 use bevy::{prelude::*, winit::WinitSettings};
 use bevy_text_popup::TextPopupPlugin;
 mod tic_tac_toe;
