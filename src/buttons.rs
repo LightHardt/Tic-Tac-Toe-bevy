@@ -116,6 +116,78 @@ fn send_lost(text_popup: &mut EventWriter<TextPopupEvent>) {
     });
 }
 
+fn mark_ai_move(
+    ai: i8,
+    button1_query: &Query<&Children,With<Marker1>>,
+    button2_query: &Query<&Children,With<Marker2>>,
+    button3_query: &Query<&Children,With<Marker3>>,
+    button4_query: &Query<&Children,With<Marker4>>,
+    button5_query: &Query<&Children,With<Marker5>>,
+    button6_query: &Query<&Children,With<Marker6>>,
+    button7_query: &Query<&Children,With<Marker7>>,
+    button8_query: &Query<&Children,With<Marker8>>,
+    button9_query: &Query<&Children,With<Marker9>>,
+    text_query: &mut Query<&mut Text>,
+) {
+    match ai {
+        1 => {
+            for button in button1_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        2 => {
+            for button in button2_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        3 => {
+            for button in button3_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        4 => {
+            for button in button4_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        5 => {
+            for button in button5_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        6 => {
+            for button in button6_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        7 => {
+            for button in button7_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        8 => {
+            for button in button8_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        9 => {
+            for button in button9_query {
+                let mut text = text_query.get_mut(button[0]).unwrap();
+                text.sections[0].value = game::AI_SYM.to_string();
+            }
+        },
+        _ => panic!("AI move error")
+    }
+}
+
 pub fn button_system(
     mut interaction_query: Query<
         (
@@ -171,63 +243,8 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
@@ -270,63 +287,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -368,63 +331,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -466,63 +375,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -564,63 +419,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -662,63 +463,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -760,63 +507,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -858,63 +551,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
@@ -956,63 +595,9 @@ pub fn button_system(
                             let ai = game::ai_move(game::AI, game::HUMAN, b.board);
                             game::player_move(game::AI, ai, &mut b.board);
 
-                            match ai {
-                                1 => {
-                                    for button in &button1_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                2 => {
-                                    for button in &button2_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                3 => {
-                                    for button in &button3_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                4 => {
-                                    for button in &button4_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                5 => {
-                                    for button in &button5_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                6 => {
-                                    for button in &button6_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                7 => {
-                                    for button in &button7_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                8 => {
-                                    for button in &button8_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                9 => {
-                                    for button in &button9_query {
-                                        let mut text = text_query.get_mut(button[0]).unwrap();
-                                        text.sections[0].value = game::AI_SYM.to_string();
-                                    }
-                                },
-                                _ => panic!("AI move error")
-                            }
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                                &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+                                
                             if game::is_draw(b.board) {
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
