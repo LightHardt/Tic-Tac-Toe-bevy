@@ -1,6 +1,10 @@
+/**
+ * Use the Marker1 - Marker9 components to mark buttons in the 3x3 grid
+ * Use AiMove component to mark the button handling the Ai making the first move
+ */
+
 use bevy::prelude::*;
 
-// Use markers to mark buttons
 #[derive(Component)]
 pub struct Marker1;
 #[derive(Component)]

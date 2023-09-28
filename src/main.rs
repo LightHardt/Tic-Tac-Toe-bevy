@@ -1,7 +1,6 @@
 #![windows_subsystem = "windows"] // hide terminal, also comment this out when debugging
 
 use bevy::{prelude::*, winit::WinitSettings};
-use bevy_text_popup::TextPopupPlugin;
 mod tic_tac_toe;
 
 use tic_tac_toe::TicTacToePlugin;
@@ -21,7 +20,7 @@ fn main() {
         };
 
     App::new()
-        .add_plugins((DefaultPlugins.set(window_plugin),TextPopupPlugin, TicTacToePlugin))
+        .add_plugins((DefaultPlugins.set(window_plugin),TicTacToePlugin))
         // Only run the app when there is user input. This will significantly reduce CPU/GPU use.
         .insert_resource(WinitSettings::desktop_app())
         .run();

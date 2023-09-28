@@ -12,6 +12,7 @@ const HOVERED_BUTTON: Color = Color::rgb(0.25, 0.25, 0.25);
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // ui camera
     commands.spawn(Camera2dBundle::default());
+    // spawn buttons for game 3x3 grid
     commands
         .spawn((NodeBundle {
             style: Style {
@@ -285,6 +286,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 });
         });
 
+    // spawn button for ai move option
     commands
         .spawn(NodeBundle {
             style: Style { 
@@ -327,6 +329,10 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             
 }
 
+/**
+ * This system will handle the AI moving first by checking if the board
+ * is empty and if so make a move
+ */
 pub fn ai_move_button(
     mut interaction_query: Query<(
         &Interaction,
@@ -373,13 +379,18 @@ pub fn ai_move_button(
             },
             Interaction::None => {
                 if ai_button_check.is_some() {
-                    border_color.0 = Color::PURPLE;
+                    border_color.0 = Color::BLACK;
                 }
             },
         }
     }
 }
 
+/**
+ * A function that will use the queries from the board_system
+ * function and remove the text on them to show the board is in a fresh
+ * state
+ */
 fn clear_board(
     button1_query: &Query<&Children,With<Marker1>>,
     button2_query: &Query<&Children,With<Marker2>>,
@@ -431,6 +442,9 @@ fn clear_board(
     }
 }
 
+/**
+ * This will send a Draw popup to the window
+ */
 fn send_draw(text_popup: &mut EventWriter<TextPopupEvent>) {
     text_popup.send(TextPopupEvent {
         content: "Draw!".to_string(),
@@ -444,6 +458,9 @@ fn send_draw(text_popup: &mut EventWriter<TextPopupEvent>) {
     });
 }
 
+/**
+ * This will send a you won popup to the window
+ */
 fn send_won(text_popup: &mut EventWriter<TextPopupEvent>) {
     text_popup.send(TextPopupEvent {
         content: "You Won!".to_string(),
@@ -457,6 +474,9 @@ fn send_won(text_popup: &mut EventWriter<TextPopupEvent>) {
     });
 }
 
+/**
+ * This will send a you lost popup to the window
+ */
 fn send_lost(text_popup: &mut EventWriter<TextPopupEvent>) {
     text_popup.send(TextPopupEvent {
         content: "You Lost!".to_string(),
@@ -470,6 +490,10 @@ fn send_lost(text_popup: &mut EventWriter<TextPopupEvent>) {
     });
 }
 
+/**
+ * Mark on the appropriate button where the ai has decided to move on
+ * the board
+ */
 fn mark_ai_move(
     ai: i8,
     button1_query: &Query<&Children,With<Marker1>>,
@@ -542,6 +566,10 @@ fn mark_ai_move(
     }
 }
 
+/**
+ * Board system handles the TicTacToe game loop by handling the interaction with the
+ * 3x3 grid of buttons and calling the appropriate functions for the game
+ */
 pub fn board_system(
     mut interaction_query: Query<
         (
