@@ -1,67 +1,11 @@
 use bevy::prelude::*;
 use bevy_text_popup::{TextPopupEvent, TextPopupTimeout, TextPopupButton};
+use rand::Rng;
 
 use super::components::*;
 use super::game;
 use super::game::*;
 use super::styles::*;
-
-/**
- * This system will handle the AI moving first by checking if the board
- * is empty and if so make a move
- */
-pub fn ai_move_button(
-    mut interaction_query: Query<(
-        &Interaction,
-        &mut BorderColor,
-        Option<&AiMove>,
-    ),
-    (Changed<Interaction>, With<Button>),
-    >,
-    button1_query: Query<&Children,With<Marker1>>,
-    button2_query: Query<&Children,With<Marker2>>,
-    button3_query: Query<&Children,With<Marker3>>,
-    button4_query: Query<&Children,With<Marker4>>,
-    button5_query: Query<&Children,With<Marker5>>,
-    button6_query: Query<&Children,With<Marker6>>,
-    button7_query: Query<&Children,With<Marker7>>,
-    button8_query: Query<&Children,With<Marker8>>,
-    button9_query: Query<&Children,With<Marker9>>,
-    mut text_query: Query<&mut Text>,
-    mut board_query: Query<&mut Game>,
-) {
-    for (interaction, mut border_color, ai_button_check) in &mut interaction_query {
-        match *interaction {
-            Interaction::Pressed => {
-                if ai_button_check.is_some() {
-                    for mut board in &mut board_query {
-                        let mut first_move_check = true;
-                        for i in board.board {
-                            for j in i {
-                                if j != 0  { first_move_check = false; }
-                            }
-                        }
-                        if !first_move_check {
-                            break;
-                        }
-                        let ai = ai_move(AI, HUMAN, board.board);
-                        player_move(AI, ai, &mut board.board);
-                        mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
-                            &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
-                    }
-                }
-            },
-            Interaction::Hovered => {
-                border_color.0 = Color::WHITE; // dont need to check as this behavior is same for all buttons
-            },
-            Interaction::None => {
-                if ai_button_check.is_some() {
-                    border_color.0 = Color::BLACK;
-                }
-            },
-        }
-    }
-}
 
 /**
  * A function that will use the queries from the board_system
@@ -240,6 +184,63 @@ fn mark_ai_move(
             }
         },
         _ => panic!("AI move error")
+    }
+}
+
+/**
+ * This system will handle the AI moving first by checking if the board
+ * is empty and if so make a move
+ */
+pub fn ai_move_button(
+    mut interaction_query: Query<(
+        &Interaction,
+        &mut BorderColor,
+        Option<&AiMove>,
+    ),
+    (Changed<Interaction>, With<Button>),
+    >,
+    button1_query: Query<&Children,With<Marker1>>,
+    button2_query: Query<&Children,With<Marker2>>,
+    button3_query: Query<&Children,With<Marker3>>,
+    button4_query: Query<&Children,With<Marker4>>,
+    button5_query: Query<&Children,With<Marker5>>,
+    button6_query: Query<&Children,With<Marker6>>,
+    button7_query: Query<&Children,With<Marker7>>,
+    button8_query: Query<&Children,With<Marker8>>,
+    button9_query: Query<&Children,With<Marker9>>,
+    mut text_query: Query<&mut Text>,
+    mut board_query: Query<&mut Game>,
+) {
+    for (interaction, mut border_color, ai_button_check) in &mut interaction_query {
+        match *interaction {
+            Interaction::Pressed => {
+                if ai_button_check.is_some() {
+                    for mut board in &mut board_query {
+                        let mut first_move_check = true;
+                        for i in board.board {
+                            for j in i {
+                                if j != 0  { first_move_check = false; }
+                            }
+                        }
+                        if !first_move_check {
+                            break;
+                        }
+                        let ai = rand::thread_rng().gen_range(1..10);
+                        player_move(AI, ai, &mut board.board);
+                        mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
+                    }
+                }
+            },
+            Interaction::Hovered => {
+                border_color.0 = Color::WHITE; // dont need to check as this behavior is same for all buttons
+            },
+            Interaction::None => {
+                if ai_button_check.is_some() {
+                    border_color.0 = Color::BLACK;
+                }
+            },
+        }
     }
 }
 

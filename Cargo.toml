@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 bevy = "0.11.2"
 bevy_text_popup = "0.1.0"
+rand = "0.8.5"
