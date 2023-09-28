@@ -1761,14 +1761,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eec1c01eb1de97451ee0d60de7d81cf1e72aabefb021616027f3d1c3ec1c723c"
 
 [[package]]
-name = "gui_attempt"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_text_popup",
-]
-
-[[package]]
 name = "guillotiere"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2987,6 +2979,14 @@ checksum = "3fdd6f064ccff2d6567adcb3873ca630700f00b5ad3f060c25b5dcfd9a4ce152"
 dependencies = [
  "cfg-if",
  "once_cell",
+]
+
+[[package]]
+name = "tic_tac_toe_bevy"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_text_popup",
 ]
 
 [[package]]

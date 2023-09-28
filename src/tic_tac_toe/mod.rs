@@ -4,8 +4,11 @@ use bevy_text_popup::TextPopupPlugin;
 mod game;
 mod systems;
 mod components;
+mod layout;
+mod styles;
 
 use systems::*;
+use layout::setup;
 
 /**
  * TicTacToePlugin has the needed systems to run the TicTacToe game
