@@ -9,16 +9,12 @@ fn grid_setup(commands: &mut Commands, asset_server: &Res<AssetServer>) {
         .spawn((NodeBundle {
             style: Style {
                 display: Display::Grid,
-                justify_content: JustifyContent::Center,
                 align_self: AlignSelf::Center,
+                // Put some margin so can be more in center of window
                 margin: UiRect::left(Val::Vw(20.0)),
+                // Set 3x3 grid
                 grid_template_columns: RepeatedGridTrack::flex(3, 1.0),
-                // Set the grid to have 4 rows all with sizes minmax(0, 1fr)
-                // This creates 4 exactly evenly sized rows
                 grid_template_rows: RepeatedGridTrack::flex(3, 1.0),
-                aspect_ratio: Some(1.0),
-                align_content: AlignContent::Center,
-                align_items: AlignItems::Center,
                 row_gap: Val::Px(1.0),
                 column_gap: Val::Px(1.0),
                 ..default()
@@ -118,7 +114,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                         justify_content: JustifyContent::Center,
                         width: Val::Px(75.0),
                         height: Val::Px(55.0),
-                        border: UiRect::all(Val::Px(2.0)),
+                        border: UiRect::all(Val::Px(3.0)),
                         ..default()
                     },
                     border_color: BorderColor(Color::BLACK),
@@ -132,7 +128,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                             TextStyle {
                                 font: asset_server.load("fonts/FiraMono-Medium.ttf"),
                                 font_size: 15.0,
-                                color: Color::rgb(0.9, 0.9, 0.9),
+                                color: Color::WHITE,
                             }
                         ));
                 });
