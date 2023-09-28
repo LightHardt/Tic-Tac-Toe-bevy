@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"] // hide terminal, also comment this out when debugging
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // Disabled console for release builds
 
 use bevy::{prelude::*, winit::WinitSettings};
 mod tic_tac_toe;

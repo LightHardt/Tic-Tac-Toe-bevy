@@ -601,17 +601,17 @@ pub fn board_system(
             marker6,marker7, marker8, marker9)) in &mut interaction_query {
         match *interaction {
             Interaction::Pressed => {
-                if marker1.is_some() {
+                if marker1.is_some() { // Use the markers to identify what button in the grid is being clicked
                     for mut b in &mut board_query {
-                        if player_move(b.turn, 1, &mut b.board) {
-                            if is_draw(b.board) {
-                                send_draw(&mut text_popup);
-                                game::clear_board(&mut b.board);
-                                clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
+                        if player_move(b.turn, 1, &mut b.board) { // Makes sure player move is valid and if makes it and continues
+                            if is_draw(b.board) { // After all moves must check if the game is in a draw state
+                                send_draw(&mut text_popup); // if draw send the appropriate popup
+                                game::clear_board(&mut b.board); // clear the game board so can continue playing
+                                clear_board(&button1_query, &button2_query, &button3_query, &button4_query,  // Clear the 3x3 grid text to show a clean board
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(b.turn, b.board) {
+                            if is_game_over(b.turn, b.board) { // After all moves must check if the player who made the move won
                                 send_won(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -622,20 +622,20 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, b.board);
-                            player_move(AI, ai, &mut b.board);
+                            let ai = ai_move(AI, HUMAN, b.board); // After all that it is time for the ai to make its move
+                            player_move(AI, ai, &mut b.board); // No need to check as Ai can only make valid moves or panics
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, // Mark on 3x3 grid where the ai moved
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(b.board) {
+                            if is_draw(b.board) { // Check if the ai move put the game in a draw state
                                 send_draw(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, b.board) {
+                            if is_game_over(AI, b.board) { // Check if the Ai made a winning move
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut b.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
@@ -645,7 +645,7 @@ pub fn board_system(
                         }
                     }
                 }
-                else if marker2.is_some() {
+                else if marker2.is_some() { // For the rest of the buttons the logic is the same as marked in button 1 above
                     for mut b in &mut board_query {
                         if player_move(b.turn, 2, &mut b.board) {
                             if is_draw(b.board) {
