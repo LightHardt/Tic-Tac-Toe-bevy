@@ -1,5 +1,5 @@
 [package]
-name = "gui_attempt"
+name = "tic_tac_toe_bevy"
 version = "0.1.0"
 edition = "2021"
 
