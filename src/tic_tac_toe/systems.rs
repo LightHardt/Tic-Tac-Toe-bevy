@@ -333,13 +333,6 @@ pub fn board_system(
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
-                                game::clear_board(&mut game_component.board);
-                                clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
-                                    &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
-                                break;
-                            }
                             {
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
@@ -350,15 +343,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -370,15 +363,14 @@ pub fn board_system(
                 else if marker3.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 3, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                                                        if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
-                            }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            }if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -394,15 +386,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -414,15 +406,14 @@ pub fn board_system(
                 else if marker4.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 4, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                                                        if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
-                            }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            }if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -438,15 +429,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -458,15 +449,14 @@ pub fn board_system(
                 else if marker5.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 5, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                                                        if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
-                            }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            } if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -482,15 +472,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -502,15 +492,15 @@ pub fn board_system(
                 else if marker6.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 6, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -526,15 +516,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -546,15 +536,15 @@ pub fn board_system(
                 else if marker7.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 7, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -569,16 +559,16 @@ pub fn board_system(
 
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
-
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -590,15 +580,15 @@ pub fn board_system(
                 else if marker8.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 8, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -614,15 +604,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -634,15 +624,15 @@ pub fn board_system(
                 else if marker9.is_some() {
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 9, &mut game_component.board) {
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(game_component.turn, game_component.board) {
+                                send_won(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(game_component.turn, game_component.board) {
-                                send_won(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
@@ -658,15 +648,15 @@ pub fn board_system(
                             mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
-                            if is_draw(game_component.board) {
-                                send_draw(&mut text_popup);
+                            if is_game_over(AI, game_component.board) {
+                                send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                                 break;
                             }
-                            if is_game_over(AI, game_component.board) {
-                                send_lost(&mut text_popup);
+                            if is_draw(game_component.board) {
+                                send_draw(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
                                     &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
