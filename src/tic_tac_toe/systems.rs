@@ -225,9 +225,9 @@ pub fn ai_move_button(
                         if !first_move_check {
                             break;
                         }
-                        let ai = rand::thread_rng().gen_range(1..10);
-                        player_move(AI, ai, &mut game_component.board);
-                        mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                        let ai_choice = rand::thread_rng().gen_range(1..10);
+                        player_move(AI, ai_choice, &mut game_component.board);
+                        mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                             &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
                     }
                 }
@@ -300,10 +300,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board); // After all that it is time for the ai to make its move
-                            player_move(AI, ai, &mut game_component.board); // No need to check as Ai can only make valid moves or panics
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board); // After all that it is time for the ai to make its move
+                            player_move(AI, ai_choice, &mut game_component.board); // No need to check as Ai can only make valid moves or panics
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, // Mark on 3x3 grid where the ai moved
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, // Mark on 3x3 grid where the ai moved
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) { // Check if the ai move put the game in a draw state
@@ -344,10 +344,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -388,10 +388,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -432,10 +432,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -476,10 +476,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -520,10 +520,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -564,10 +564,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -608,10 +608,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
@@ -652,10 +652,10 @@ pub fn board_system(
                                 let mut text = text_query.get_mut(children[0]).unwrap(); // put in its own scope so can reborrow
                                 text.sections[0].value = HUMAN_SYM.to_string();
                             }
-                            let ai = ai_move(AI, HUMAN, game_component.board);
-                            player_move(AI, ai, &mut game_component.board);
+                            let ai_choice = ai_move(AI, HUMAN, game_component.board);
+                            player_move(AI, ai_choice, &mut game_component.board);
 
-                            mark_ai_move(ai, &button1_query, &button2_query, &button3_query, &button4_query, 
+                            mark_ai_move(ai_choice, &button1_query, &button2_query, &button3_query, &button4_query, 
                                 &button5_query, &button6_query, &button7_query, &button8_query, &button9_query, &mut text_query);
 
                             if is_draw(game_component.board) {
