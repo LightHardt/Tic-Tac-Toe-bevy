@@ -326,7 +326,7 @@ pub fn board_system(
                 else if marker2.is_some() { // For the rest of the buttons the logic is the same as marked in button 1 above
                     for mut game_component in &mut game_query {
                         if player_move(game_component.turn, 2, &mut game_component.board) {
-                            if is_game_over(AI, game_component.board) {
+                            if is_game_over(game_component.turn, game_component.board) {
                                 send_lost(&mut text_popup);
                                 game::clear_board(&mut game_component.board);
                                 clear_board(&button1_query, &button2_query, &button3_query, &button4_query, 
